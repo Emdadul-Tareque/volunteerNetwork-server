@@ -38,10 +38,12 @@ client.connect((err) => {
 
   app.post("/addUser", (req, res) => {
     const newRegistration = req.body;
+    console.log("new", newRegistration);
     Collection.insertOne(newRegistration).then((result) => {
+      console.log(result.insertedCount);
       res.send(result.insertedCount > 0);
     });
-    console.log(newRegistration);
+   
   });
 
   app.get("/userEvents", (req, res) => {
@@ -60,7 +62,7 @@ client.connect((err) => {
   });
 
   app.delete("/delete/:id", (req, res) => {
-    Collection.deleteOne({ _id: req.params.id }).then((result) => {
+    Collection.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
       console.log(result.deletedCount);
       res.send(result);
     });
@@ -71,4 +73,4 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(process.env.PORT || port);
+app.listen( port);
