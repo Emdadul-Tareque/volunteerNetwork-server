@@ -67,6 +67,12 @@ client.connect((err) => {
       res.send(result);
     });
   });
+   app.get("/allEvents", (req, res) => {
+     Collection.find({}).toArray((err, documents) => {
+       res.send(documents);
+     });
+   });
+
 });
 
 app.get("/", (req, res) => {
